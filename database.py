@@ -1,12 +1,22 @@
 import sqlite3
+import sys
+import os
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS  # Used by PyInstaller
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 def remove_table():
-    conn=sqlite3.connect("flights.db")
+    conn=sqlite3.connect(resource_path("flights.db"))
     cur=conn.cursor()
     cur.execute("DROP TABLE reservation")
     conn.commit()
     conn.close()
 def table_init():
-    conn=sqlite3.connect("flights.db")
+    conn=sqlite3.connect(resource_path("flights.db"))
     cur=conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTs 
             reservation(fullName TEXT NOT NULL,
@@ -29,7 +39,7 @@ def table_init():
     conn.commit()
     conn.close()
 def EDIT_reservation(id, name, flight_num, departure, destination, date, seat_number):
-    conn = sqlite3.connect("flights.db")
+    conn = sqlite3.connect(resource_path("flights.db"))
     cur = conn.cursor()
     cur.execute("""
         UPDATE reservation
@@ -45,7 +55,7 @@ def EDIT_reservation(id, name, flight_num, departure, destination, date, seat_nu
     conn.close()
 
 def remove_reservation(id):
-    conn=sqlite3.connect("flights.db")
+    conn=sqlite3.connect(resource_path("flights.db"))
     cur=conn.cursor()
     cur.execute(f"DELETE FROM reservation WHERE rowid = {id} ")
     conn.commit()
@@ -71,7 +81,7 @@ def insert_resrervation(name,flight_num,departure,destination,date,seat_number):
     if is_not_integer(seat_number):     
         return_stat+='Invalid Seat Number\n'
     if return_stat=='':
-        conn=sqlite3.connect("flights.db")
+        conn=sqlite3.connect(resource_path("flights.db"))
         cur=conn.cursor()
         cur.execute(f"""INSERT INTO reservation  
                     VALUES('{name}',{flight_num},'{departure}','{destination}','{date}',{seat_number})""")
@@ -81,7 +91,7 @@ def insert_resrervation(name,flight_num,departure,destination,date,seat_number):
     else:
         return return_stat
 def display(displayfor):
-    conn=sqlite3.connect("flights.db")
+    conn=sqlite3.connect(resource_path("flights.db"))
     cur=conn.cursor()
     def search(searchfor):
         cur.execute(f"""Select rowid,* from reservation 
@@ -103,3 +113,6 @@ def display(displayfor):
 
 # remove_table()
 # table_init()
+data = display(None)
+for i in data:
+    print(i)
