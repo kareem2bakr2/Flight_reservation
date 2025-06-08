@@ -1,4 +1,5 @@
 Library      : Description                                                                                              
+-------------------------------------------------------------------------------------------------------------------------
 tkinter`     : Used to build the graphical user interface (GUI). It comes pre-installed with Python.                    
 sqlite3`     : Built-in Python library used for database operations (CRUD).                                             
 Pillow`      : Required for image handling (e.g., icons like edit/delete buttons). Install with `pip install pillow`.   
