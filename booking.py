@@ -89,6 +89,7 @@ class Booking:
         return_stat=insert_resrervation(name,flight_num,departure,destination,date,seat_number)
         if return_stat == "Successfully added":
             self.hide()
+            self.reservation_page.search_hanndle()
             self.reservation_page.show()
         else:
             self.err_label=Label(self.form,text=f'{return_stat}',fg='red',bg="white",font=('arial',10,'bold'))
