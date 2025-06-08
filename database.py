@@ -113,6 +113,6 @@ def display(displayfor):
 
 # remove_table()
 # table_init()
-data = display(None)
-for i in data:
-    print(i)
+# data = display(None)
+# for i in data:
+#     print(i)
